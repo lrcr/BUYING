@@ -1,0 +1,24 @@
+product_key : {
+	category : {
+		no : Number,
+		name : String
+	}
+	name : String,
+	brand : String,
+	grade : String,
+	price : Number,
+	component : String,
+	mention : String,
+	spec : {
+		key : []
+		value : []
+	}
+	image : [],
+	state : String, //판매중, 결제완료, 결제취소
+	date : String
+}
+
+
+
+
+

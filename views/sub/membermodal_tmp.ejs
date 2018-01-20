@@ -1,0 +1,55 @@
+<script src="../js/admin/bootstrap-table.js"></script>
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" >거래 이력</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<fieldset >
+			<table data-toggle="table" data-url=""  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="order_date" data-sort-order="desc">
+		    <thead>
+			    <tr>
+			        <th data-field="check" data-checkbox="true" ></th>
+			        <th data-field="order_no" data-sortable="true">주문번호</th>
+			        <th data-field="product_name" data-sortable="true">상품명</th>
+			        <th data-field="pay_price" data-sortable="true">결제금액</th>
+			        <th data-field="step" data-sortable="true">진행상태</th>
+			        <th data-field="order_date" data-sortable="true">주문날짜</th>
+			        <th data-field="cancel_reason" data-sortable="true">비고</th>
+			    </tr>
+		    </thead>
+		    <tbody>
+		    <%var step = "";
+		    	for(var i in docs){
+		    	if(docs[i].order_state.step ==2){
+		    		step = "결제완료";
+		    	}else if(docs[i].order_state.step==3){
+		    		step = "구매확정";
+		    	}else if(docs[i].order_state.step==4){
+		    		step = "취소/반품";
+		    	}%>
+	    		<tr>
+	    			<td></td>
+	    			<td class="order_no"><%=docs[i].order_no%></td>
+	    			<td class="product_name"><%=docs[i].product_name%></td>
+	    			<td class="pay_price"><%=docs[i].pay_price%></td>
+	    			<td class="step"><%=step%></td>
+	    			<td class="order_date"><%=docs[i].buying.request.order_date%></td>
+	    			<td class="cancel_reason"><%=docs[i].order_state.cancel_reason%></td>
+	    		</tr>
+	    	<%}%>
+		    </tbody>
+		</table>
+		</fieldset>
+	</form>
+</div>
+<div class="modal-footer">
+	<input type="button" class="btn btn-primary col-xs-2" value="쿠폰" data-toggle="modal" data-target="#discount-detail" data-dismiss="modal" onclick="discount('coupon')">
+
+	<input type="button" class="btn btn-success col-xs-3" value="마일리지" data-toggle="modal" data-target="#discount-detail" data-dismiss="modal" onclick="discount('mileage')">
+
+  <button class="btn btn-danger" >결제취소</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+</div>

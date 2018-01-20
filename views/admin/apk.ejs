@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUYING</title>
+    <link href="https://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/admin/bootstrap-table.css" rel="stylesheet">
+    <link href="../css/admin/styles.css" rel="stylesheet">
+    <link href="../css/all.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="../js/jquery-1.11.3.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/admin/bootstrap-table.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+</head>
+
+<body style="background: white;">
+
+    <h1 style="font-weight: 400; color : black;">BUYING Debug APK</h1>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </thead>
+
+      <tbody>
+        <tr>
+         <td>Download</td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td ><a class="glyphicon glyphicon-save" id="downLink"></a>   </td>
+        </tr>
+      </tbody>
+    </table>
+
+   <script>
+    var socket = io();
+
+    socket.emit('check', 'buying');
+    socket.on('config', function(msg) {
+        if(msg !='fail'){
+            firebase.initializeApp(msg);
+
+            var storageRef = firebase.storage().ref('android/app-debug.apk');
+
+            storageRef.getDownloadURL().then(function(url) {
+                $('#downLink').attr('href', url);
+
+                }, function(err){
+                    alert("에러잡는중~"+err);
+                });
+
+
+
+        }else if(msg =='fail') alert("네트워크 상태가 원활하지 않습니다.");
+    })
+
+   </script>
+
+
+</body>
+
+</html>

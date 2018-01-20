@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form>
+    	<input value="01022550969" id="pb">
+    	<input type="button" value="전송" id="signin" onclick="sign()">
+    	<input type="button" value="로그아웃" id="logout">
+    </form>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAJRWEBFXQe-smufr0uzM2Zld9X4W1_YVU",
+        authDomain: "buying-73369.firebaseapp.com",
+        databaseURL: "https://buying-73369.firebaseio.com",
+        storageBucket: "buying-73369.appspot.com",
+        messagingSenderId: "490933556876"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script type="text/javascript">
+	    firebase.auth().onAuthStateChanged(function(user) {
+	      if (user) {
+	        console.log('로그인');
+	      } else {
+	        console.log('로그아웃');
+	      }
+	    });
+
+
+    	$('#logout').on('click', function(){
+    		firebase.auth().signOut().then(function() {
+    		  // Sign-out successful.
+    		}, function(error) {
+    		  // An error happened.
+    		});
+    	});
+    	function sign(){
+
+    		$.ajax({
+    		   url:"test",
+    		   type:"post",
+    		   data: {uid : $('#pb').val()},
+    		   error:function(error){console.log(error);},
+    		   success:function(result){
+
+    		   	firebase.auth().signInWithCustomToken(result.result).then(function(cb){
+    		   		console.log(cb);
+    		   	})
+    		   	.catch(function(error) {
+    		   	  // Handle Errors here.
+    		   	  var errorCode = error.code;
+    		   	  var errorMessage = error.message;
+    		   	  // ...
+    		   	  alert(error);
+    		   	});
+
+
+    		   }//통신완료
+    		});//ajax끝
+    	}
+
+
+    </script>
+  </body>
+</html>

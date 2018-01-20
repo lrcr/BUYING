@@ -1,0 +1,5 @@
+.modal-dialog {z-index:10000;}
+.note-toolbar{min-height:140px;}
+.modal{
+	overflow-y: scroll;
+}

@@ -1,0 +1,52 @@
+<script src="../js/admin/bootstrap-table.js"></script>
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title"><%=title%></h4>
+</div>
+
+<div class="modal-body">
+		<fieldset>
+		<div class="form-group">
+			<table id="discount_table" data-toggle="table" data-url=""  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="" data-pagination="true" data-sort-name="reg_date" data-sort-order="desc">
+					    <thead>
+						    <tr>
+						        <th data-field="check" data-checkbox="true" ></th>
+						        <th data-field="content" data-sortable="true">내용</th>
+						        <th data-field="amount" data-sortable="true">금액</th>
+						        <th data-field="reg_date" data-sortable="true">발급일자</th>
+						        <th data-field="end_date" data-sortable="true">소멸일자</th>
+						        <th data-field="who" data-sortable="true">비고</th>
+						    </tr>
+					    </thead>
+					    <tbody>
+					    <%for(var i in docs){
+					    	if(title =="쿠폰"){%>
+				    		<tr>
+				    			<td></td>
+				    			<td class="content"><%=docs[i].content%></td>
+				    			<td class="amount"><%=docs[i].amount%></td>
+				    			<td class="reg_date"><%=docs[i].reg_date%></td>
+				    			<td class="end_date"><%=docs[i].end_date%></td>
+				    			<td class="who"></td>
+				    		</tr>
+				    	<%}else if(title == "마일리지"){%>
+				    		<tr>
+				    			<td></td>
+				    			<td class="content"><%=docs[i].content%></td>
+				    			<td class="amount"><%=docs[i].amount%></td>
+				    			<td class="reg_date"><%=docs[i].reg_date%></td>
+				    			<td class="end_date"><%=docs[i].end_date%></td>
+				    			<td class="who"></td>
+				    		</tr>
+				    	<%}}%>
+					    </tbody>
+					</table>
+		</div>
+		</fieldset>
+</div>
+<div class="modal-footer">
+
+	<input type="button" value = "닫기" class="btn btn-default" data-dismiss="modal">
+</div>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BUYING</title>
+	<link href="https://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/admin/bootstrap-table.css" rel="stylesheet">
+	<link href="../css/admin/styles.css" rel="stylesheet">
+	<link href="../css/all.css" rel="stylesheet">
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/admin/bootstrap-table.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+</head>
+
+<body>
+	<%- include adminnav.ejs %>
+
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>상품등록</h1>
+			</div>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default" style="position:relative;">
+					<div class="panel-heading">상품 목록</div>
+					<div class="panel-body">
+						<div id="my_menu">
+							<button class="btn btn-danger event-btn" data-toggle="modal" data-target="#add_item">상품등록</button>
+
+
+						</div>
+						<table id="member_table" data-toggle="table" data-url=""  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						    <thead>
+							    <tr>
+							        <th data-field="check" data-checkbox="true" ></th>
+							        <th data-field="item_name" data-sortable="true">상품명</th>
+							        <th data-field="reg_data" data-sortable="true">등록일</th>
+							        <th data-field="state" data-sortable="true">거래상태</th>
+							    </tr>
+						    </thead>
+						    <tbody>
+
+					    		<%for(var i=0; i<datas.length; i++){%>
+				    			<tr>
+					    			<td></td>
+
+					    			<td class="item_name"><a href="#!" data-toggle="modal" data-target="#item_detail" class="" onclick="loadItem('<%=datas[i].key%>');">
+					    			<%=datas[i].name%></a></td>
+					    			<td class="reg_data"><%=datas[i].date%></td>
+					    			<td class="state"><%=datas[i].state%></td>
+					    		</tr>
+					    		<%}%>
+
+						    </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div><!--/.main-->
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="item_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<input type="hidden" id="hidden-key" readonly>
+			<div class="modal-content" id="item_detail_view">
+
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+	<!-- 조회 Modal End -->
+
+	<div class="modal fade" id="add_item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" >등록하기</h4>
+					</div>
+					<div class="modal-body">
+								<div class="panel-body">
+									<form class="form-horizontal" action="" method="" id="addForm" >
+	                                  <fieldset>
+
+	                                    <div class="form-group">
+	                                    	<label class="col-lg-2 control-label">카테고리</label>
+	                                    	<div class="col-lg-10">
+			                                    <select class="form-control" name = "category" id="category">
+			                                    	<option>선택(필수)</option>
+			                                      <option>1.스마트폰</option>
+			                                      <option>2.노트북</option>
+			                                      <option>3.태블릿</option>
+			                                      <option>4.모니터</option>
+			                                      <option>5.웨어러블</option>
+			                                    </select>
+		                                    </div>
+		                                   </div>
+
+
+	                                    <div class="form-group">
+	                                      <label class="col-lg-2 control-label">모델명</label>
+	                                      <div class="col-lg-10">
+	                                        <input class="form-control" name="product_name" id="product_name">
+	                                      </div>
+	                                    </div>
+
+
+	                                    <div class="form-group">
+	                                      <label class="col-lg-2 control-label">브랜드</label>
+	                                      <div class="col-lg-10">
+	                                        <input class="form-control" name="brand_name" id="brand_name">
+	                                      </div>
+	                                    </div>
+
+
+	                                  <div class="form-group">
+	                                  	<label class="col-lg-2 control-label">상태등급</label>
+	                                  	<div class="col-lg-10">
+		                                    <select class="form-control" name = "grade" id="grade">
+		                                    	<option>선택(필수)</option>
+		                                      <option>S</option>
+		                                      <option>A</option>
+		                                      <option>B</option>
+		                                      <option>C</option>
+		                                      <option>미개봉</option>
+		                                    </select>
+	                                    </div>
+	                                   </div>
+
+
+
+
+	                               <div class="form-group">
+	                                 <label class="col-lg-2 control-label">가격</label>
+	                                 <div class="col-lg-10">
+	                                   <input type="number" name="price" class="form-control" step ="1000" id="price" min="0">
+	                                 </div>
+	                               </div>
+
+
+	                               <div class="form-group">
+	                                 <label class="col-lg-2 control-label">구성품</label>
+	                                 <div class="col-lg-10">
+	                                   <input class="form-control" name="component" id="component">
+	                                 </div>
+	                               </div>
+
+
+
+	                                    <div class="form-group">
+	                                      <label for="textArea" class="col-lg-2 control-label">Buyer 한마디</label>
+	                                      <div class="col-lg-10">
+	                                        <textarea class="form-control" rows="3" name="mention" id="mention"></textarea>
+	                                      </div>
+	                                    </div>
+
+	                                    <div class="form-group">
+
+	                                    </div>
+
+	                                    <div class="form-group spec_box">
+	                                    	<label for="textArea" class="col-lg-2 control-label">제품스펙</label>
+	                                      <div class="col-lg-2"><input class="form-control spec_key" id="1_spec_key" placeholder="ex)색상"></div>
+	                                      <div class="col-lg-8"><input class="form-control spec_value" id="1_spec_value" placeholder="내용"></div>
+
+																				<label for="textArea" class="col-lg-2 control-label"></label>
+	                                      <div class="col-lg-2"><input class="form-control spec_key" id="2_spec_key"></div>
+	                                      <div class="col-lg-8"><input class="form-control spec_value" id="2_spec_value" placeholder="내용"></div>
+
+																				<label for="textArea" class="col-lg-2 control-label"></label>
+	                                      <div class="col-lg-2"><input class="form-control spec_key" id="3_spec_key"></div>
+	                                      <div class="col-lg-8"><input class="form-control spec_value" id="3_spec_value" placeholder="내용"></div>
+
+	                                      <label for="textArea" class="col-lg-2 control-label"></label>
+	                                      <div class="col-lg-2"><input class="form-control spec_key" id="4_spec_key"></div>
+	                                      <div class="col-lg-8"><input class="form-control spec_value" id="4_spec_value" placeholder="내용"></div>
+
+	                                      <label for="textArea" class="col-lg-2 control-label"></label>
+	                                      <div class="col-lg-2"><input class="form-control spec_key" id="5_spec_key"></div>
+	                                      <div class="col-lg-8"><input class="form-control spec_value" id="5_spec_value" placeholder="내용"></div>
+
+	                                    </div>
+	                                    <div class="form-group">
+	                                      <div class="col-lg-10 col-lg-offset-2">
+	                                        <input type="button" id="add-spec" class="btn btn-info" value="스펙추가" onclick="addSpec();">
+	                                        (추가시 기존 작성글 초기화 주의)
+	                                      </div>
+	                                    </div>
+
+
+                                      <div class="form-group image_box">
+                                        <label class="col-lg-2 control-label">대표사진</label>
+                                        <div class="col-lg-10">
+                                          <input type="file" class="form-control" id="mainImage" name ="mainImage">
+                                        </div>
+                                        <label class="col-lg-2 control-label">사진</label>
+                                        <div class="col-lg-10">
+                                          <input type="file" class="form-control item_image" name ="image" id="1_image">
+                                        </div>
+                                        <label class="col-lg-2 control-label">사진</label>
+                                        <div class="col-lg-10">
+                                          <input type="file" class="form-control item_image" name ="image" id="2_image">
+                                        </div>
+                                        <label class="col-lg-2 control-label">사진</label>
+                                        <div class="col-lg-10">
+                                          <input type="file" class="form-control item_image" name ="image" id="3_image">
+                                        </div>
+                                      </div>
+
+
+
+	                                    <div class="form-group">
+	                                      <div class="col-lg-10 col-lg-offset-2">
+	                                        <input type="button" id="add-image" class="btn btn-info" value="사진추가" onclick="addImg();">
+	                                        (추가시 기존 업로드 초기화)
+	                                      </div>
+	                                    </div>
+
+	                                  </fieldset>
+					<div class="modal-footer">
+						<button class="btn btn-primary" >완료</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+	          </form>
+	        </div>
+				</div>
+			</div>
+		</div>
+		<!-- 상품 추가 Modal End -->
+
+
+	<script src="../js/admin/resell.js"></script>
+</body>
+
+</html>

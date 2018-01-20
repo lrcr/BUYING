@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BUYING</title>
+<link href="https://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
+<link href="../css/admin/bootstrap-table.css" rel="stylesheet">
+<link href="../css/admin/styles.css" rel="stylesheet">
+<link href="../css/all.css" rel="stylesheet">
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="../js/jquery-1.11.3.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/admin/bootstrap-table.js"></script>
+</head>
+
+<body>
+		<%- include adminnav.ejs %>
+
+
+			<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>문의사항</h1>
+				</div>
+			</div><!--/.row-->
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default" style="position:relative;">
+						<div class="panel-heading">1:1 문의 List</div>
+						<div class="panel-body">
+
+							<table id="question_table" data-toggle="table" data-url=""  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+							    <thead>
+								    <tr>
+								        <th data-field="check" data-checkbox="true" ></th>
+								        <th data-field="title" data-sortable="true">제목</th>
+								        <th data-field="email" data-sortable="true">사용자</th>
+								        <th data-field="write_date" data-sortable="true">등록일</th>
+								        <th data-field="answer" data-sortable="true">상태</th>
+								    </tr>
+							    </thead>
+							    <tbody>
+							    <%var answer ="";
+							    	for(var i in result){
+										if(result[i].answer==null) {
+											answer ="응답전";
+										}else if(result[i].answer!=null){
+											answer ="응답완료";
+										}
+							    %>
+						    		<tr>
+						    			<td></td>
+						    			<td class="title"><a href="#" class="question-detail" onclick='load_id("<%=result[i]._id%>")' data-toggle="modal" data-target="#question-modal"><%=result[i].title%></a></td>
+						    			<td class="email"><%=result[i].email%></td>
+						    			<td class="write_date"><%=result[i].write_date%></td>
+						    			<td class="answer"><%=answer%></td>
+						    		</tr>
+						    		<%}%>
+							    </tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div><!--/.row-->
+		</div><!--/.main-->
+
+
+		<%- include ../sub/questionmodal.ejs %>
+	<script type="text/javascript" src="../js/admin/admin.js"></script>
+</body>
+
+</html>

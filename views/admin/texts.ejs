@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BUYING</title>
+	<link href="https://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/admin/bootstrap-table.css" rel="stylesheet">
+	<link href="../css/admin/styles.css" rel="stylesheet">
+	<link href="../css/all.css" rel="stylesheet">
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/admin/bootstrap-table.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+</head>
+
+<body>
+	<%- include adminnav.ejs %>
+
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header"><span class="glyphicon glyphicon-list" aria-hidden="true"></span>이용약관</h1>
+			</div>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default" style="position:relative;">
+					<div class="panel-heading">
+						<button type="reset" class="btn btn-success preview">미리보기</button>
+						<button type="reset" class="btn btn-primary save">저장하기</button>
+					</div>
+
+					<div class="panel-body">
+
+
+						<div class="form-group">
+				      <label for="textArea" class="col-lg-2 control-label">서비스 이용약관</label>
+				      <div class="col-lg-10 html_box1" >
+				      	<div class="col-lg-12 hb"></div>
+				        <textarea class="form-control ta" rows="5" id="textArea1"><p>이용약관입니다. <font color="#3c58ff">파란색 글씨</font> 이용약관 작성 후 저장해 주세요. 줄바꿈은 <br> 사용</p></textarea>
+				      </div>
+				    </div>
+
+		    		<div class="form-group">
+		          <label for="textArea" class="col-lg-2 control-label">개인정보 처리방침</label>
+		          <div class="col-lg-10 html_box2 hb">
+		            <textarea class="form-control ta" rows="5" id="textArea2"><p>개인정보 처리방침 <font color="#3c58ff">파란색 글씨</font> 작성 후 저장해 주세요. 줄바꿈은 <br> 사용 </p></textarea>
+		          </div>
+		        </div>
+
+        		<div class="form-group">
+              <label for="textArea" class="col-lg-2 control-label">배송정책</label>
+              <div class="col-lg-10 html_box3 hb">
+                <textarea class="form-control ta" rows="5" id="textArea3"><p>배송정책 <font color="#3c58ff">파란색 글씨</font> 작성 후 저장해 주세요. 줄바꿈은 <br> 사용</p></textarea>
+              </div>
+            </div>
+
+        		<div class="form-group">
+              <label for="textArea" class="col-lg-2 control-label">직접배송이란?</label>
+              <div class="col-lg-10 html_box4 hb">
+                <textarea class="form-control ta" rows="5" id="textArea4"><p>직접배송 <font color="#3c58ff">파란색 글씨</font> 작성 후 저장해 주세요. 줄바꿈은 <br> 사용</p></textarea>
+              </div>
+            </div>
+
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div><!--/.main-->
+
+
+	<script src="../js/admin/texts.js"></script>
+</body>
+
+</html>

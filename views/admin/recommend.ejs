@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BUYING</title>
+	<link href="https://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/admin/bootstrap-table.css" rel="stylesheet">
+	<link href="../css/admin/styles.css" rel="stylesheet">
+	<link href="../css/all.css" rel="stylesheet">
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/admin/bootstrap-table.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+</head>
+
+<body>
+	<%- include adminnav.ejs %>
+
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>추천질문</h1>
+			</div>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default" style="position:relative;">
+					<div class="panel-heading">질문 등록/수정</div>
+					<div class="panel-body">
+
+
+	          <div class="form-group">
+	          	<label class="control-label" for="category">카테고리</label>
+              <select class="form-control" id="category">
+              	<option>선택</option>
+                <option>스마트폰-phone</option>
+                <option>태블릿PC-tablet</option>
+                <option>노트북-laptop</option>
+                <option>유모차-carriage</option>
+                <option>캠핑용 텐트-tent</option>
+                <option>골프용품-golf</option>
+                <option>그 외-others</option>
+              </select>
+	           </div>
+
+            <div class="form-group model_box">
+ 						  	<label class="col-lg-2 control-label">모델 결정 유무</label>
+				        		<div class="col-lg-10 btn-group" data-toggle="buttons">
+						 	  <label class="btn btn-primary grade-lb active">
+						 	   <input type="radio" class="join-radio model" name="model" value="1" checked> 네
+							  </label>
+							  <label class="btn btn-default grade-lb">
+							    <input type="radio" class="join-radio model" name="model" value="0" > 아니오
+							  </label>
+							  <input type="hidden" value="1" id="model" readonly="true">
+							</div>
+            </div>
+
+	           <div id="question_box">
+
+	           	<div class="form-group">
+	           	 	<label class="control-label" >질문1</label>
+	           	 	<input class="form-control question" id="q1" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	           	<div class="form-group">
+	           	  <label class="control-label" >질문2</label>
+	           	  <input class="form-control question" id="q2" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	           	<div class="form-group">
+	           	  <label class="control-label" >질문3</label>
+	           	  <input class="form-control question" id="q3" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	           	<div class="form-group">
+	           	  <label class="control-label" >질문4</label>
+	           	  <input class="form-control question" id="q4" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	           	<div class="form-group">
+	           	  <label class="control-label" >질문5</label>
+	           	  <input class="form-control question" id="q5" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	           	<div class="form-group">
+	           	  <label class="control-label" >질문6</label>
+	           	  <input class="form-control question" id="q6" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	           	<div class="form-group">
+	           	  <label class="control-label" >질문7</label>
+	           	  <input class="form-control question" id="q7" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	           	<div class="form-group">
+	           	  <label class="control-label" >질문8</label>
+	           	  <input class="form-control question" id="q8" data-toggle="modal" data-target="#recommend_modal" readonly="true">
+	           	</div>
+
+	          </div>
+
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div><!--/.main-->
+
+
+	<div class="modal fade" id="recommend_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" >질문 등록</h4>
+					</div>
+
+					<div class="modal-body">
+							<fieldset>
+
+							<select class="form-control" id="type">
+								<option>유형선택</option>
+								<option>1.성별/연령대-gender</option>
+								<option>2.예산-price</option>
+								<option>3.브랜드-brand</option>
+								<option>4.우선순위(주사용기능)-purpose</option>
+								<option>5.네/아니오(ex>상태우선/가격우선)-priority</option>
+								<option>6.당일배송-delivery</option>
+								<option>7.그외요구사항(체크박스)-others</option>
+							</select>
+
+							<div class="form-group">
+							  <input class="form-control" placeholder="질문을 입력하세요" id="question_input">
+							</div>
+
+							<div class="form-group" id="brand_box">
+								<label class="control-label" >브랜드 최대 6개</label>
+								<div class="col-lg-12 col-sm-12">
+									<div class="col-lg-2 col-sm-2 ">
+										<input class="form-control brand1" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control brand2" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control brand3" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control brand4" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control brand5" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control brand5" >
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group" id="purpose_box">
+								<label class="control-label" >주사용기능 최대 12개</label>
+								<div class="col-lg-12 col-sm-12">
+									<div class="col-lg-2 col-sm-2 ">
+										<input class="form-control purpose1" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose2" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose3" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose4" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose5" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose6" >
+									</div>
+									<div class="col-lg-2 col-sm-2 ">
+										<input class="form-control purpose7" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose8" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose9" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose10" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose11" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control purpose12" >
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group" id="priority_box">
+								<label class="control-label" >양자택일</label>
+								<div class="col-lg-12 col-sm-12">
+									<div class="col-lg-2 col-sm-2 ">
+										<input class="form-control priority1" >
+									</div>
+									<div class="col-lg-2 col-sm-2">
+										<input class="form-control priority2" >
+									</div>
+
+								</div>
+							</div>
+
+							<div class="form-group" id="others_box">
+								<label class="control-label" >체크박스 최대 5개</label>
+								<input class="form-control others1" >
+								<input class="form-control others2" >
+								<input class="form-control others3" >
+								<input class="form-control others4" >
+								<input class="form-control others5" >
+							</div>
+
+							<textarea class="form-control" rows="5" id="preview" readonly="true"></textarea>
+
+							</fieldset>
+					</div>
+					<div class="modal-footer">
+						<input type="button" value = "수정/초기화" id="reset" class="btn btn-danger col-sm-3">
+					  <input type="button" value = "저장" id="question_save" class="btn btn-primary" data-dismiss="modal">
+						<input type="button" value = "닫기" class="btn btn-default" data-dismiss="modal">
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<input type="hidden" id="datas" readonly="true">
+
+
+	<script src="../js/admin/recommend.js"></script>
+</body>
+
+</html>

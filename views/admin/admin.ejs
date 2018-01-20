@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BUYING</title>
+<link href="https://bootswatch.com/cosmo/bootstrap.min.css" rel="stylesheet">
+<link href="../css/admin/bootstrap-table.css" rel="stylesheet">
+<link href="../css/admin/styles.css" rel="stylesheet">
+<link href="../css/all.css" rel="stylesheet">
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="../js/jquery-1.11.3.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/admin/bootstrap-table.js"></script>
+</head>
+
+<body>
+	<%- include adminnav.ejs %>
+
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>회원관리</h1>
+			</div>
+		</div><!--/.row-->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default" style="position:relative;">
+					<div class="panel-heading">회원 목록</div>
+					<div class="panel-body">
+						<div id="my_menu">
+							<button id="alarm" class="btn btn-danger event-btn" data-toggle="modal" data-target="#alarm_modal">알림등록</button>&nbsp;
+							<!-- <button id="coupon" class="btn btn-primary event-btn" data-toggle="modal" data-target="#coupon_modal">쿠폰등록</button>&nbsp;
+							<button id="milage" class="btn btn-success event-btn" data-toggle="modal" data-target="#milage_modal">마일리지</button>&nbsp; -->
+						<!-- 	<button id="modify" class="btn btn-success">수정</button>&nbsp;
+							<button id="delete" class="btn btn-default">삭제</button>&nbsp; -->
+						</div>
+						<table id="member_table" data-toggle="table" data-url=""  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						    <thead>
+							    <tr>
+							        <th data-field="check" data-checkbox="true" ></th>
+							        <th data-field="email" data-sortable="true">이메일</th>
+							        <th data-field="mem_name" data-sortable="true">이름</th>
+							        <th data-field="mem_phone" data-sortable="true">연락처</th>
+							        <th data-field="admin" data-sortable="true">관리자구분</th>
+							    </tr>
+						    </thead>
+						    <tbody>
+					    		<tr>
+					    		<%for(var i=0; i<results.length; i++){
+					    			var agr='';
+					    			if(results[i].service_agr==1){
+					    				agr ="동의";
+					    			}else{
+					    				agr = "거부";
+				    				}%>
+					    			<td></td>
+					    			<td class="email"><%=results[i].email%></td>
+					    			<td class="mem_name"><a href="#" data-toggle="modal" data-target="#member_trade" class="mem-name" onclick ="load_email('<%=results[i].email%>')"><%=results[i].mem_name%></a></td>
+					    			<td class="mem_phone"><%=results[i].mem_phone%></td>
+					    			<td class="admin"><%=results[i].admin%></td>
+					    		</tr>
+					    		<%}%>
+						    </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div><!--/.main-->
+
+
+	<%- include ../sub/membermodal.ejs %>
+	<script src="../js/admin/admin.js"></script>
+</body>
+
+</html>
